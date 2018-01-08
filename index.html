@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R R R</title>
+  <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <style>
+    #container {
+
+    }
+    #container h1 {
+      font-size: 48px;
+      font-family: sans-serif;
+      color: #0080AB;
+    }
+  	#v_main {
+    	position: relative;
+    }
+	#v_main_inner, 
+	#v_main_selection {
+		position: absolute;
+		top:0;
+		left:0;
+	}
+	#v_main_inner {
+		z-index: -100;
+	}
+
+  </style>
+</head>
+<body>
+
+<div id="container">
+
+</div>
+
+
+<script type="text/babel">
+	var destination = document.querySelector("#container");
+
+	var FirstComponent = React.createClass({
+	
+		render:	function() {
+			var myStyle = {
+				margin:"20px",
+				padding:"10px",
+				height: "auto",
+				width: "auto",
+				fontWeight:"bold",
+				backgroundColor: "transparent"
+			};
+			return (
+				<div style={myStyle}>
+					<img src="ScreenShot.png" height="300" width="400"/>
+				</div>
+			);
+
+		}
+
+	});
+
+	 var VideoMain = React.createClass({
+
+	 	getInitialState: function() {
+
+			return {
+				showItemList: false 
+			};
+	 	},
+		vid: "#video-1-sex-n-city-trailer",
+
+		videoClick: function(e) {
+			var vidObj = document.querySelector(this.vid);
+			if(vidObj.paused){
+				this.setState({showItemList: false});	
+				console.log(this.state.showItemList);		
+				vidObj.play();
+			} else {
+				vidObj.pause();
+				this.setState({showItemList: true});
+			}		
+		},
+		componentDidMount: function() {	
+		  	var vidObj = document.querySelector(this.vid);
+			vidObj.addEventListener("click", this.videoClick);
+		},
+		render: function() {
+			return (
+				<div id="v_main">
+					<div id="v_main_inner">
+						<video id="video-1-sex-n-city-trailer" width="550" height="310" controls autoPlay>
+				    		<source src="video-1-sex-n-city-trailer.mp4">
+
+							</source>
+				  		</video>
+			  		</div>
+			  		<div id="v_main_selection">
+			  			{this.state.showItemList? <FirstComponent />:null} 
+			  		</div>
+			  	</div>
+			  	
+			)
+
+		}
+		
+	});
+
+
+	ReactDOM.render(
+		<div>
+	    	<VideoMain />
+		</div>,
+		destination
+	);
+
+</script>
+
+</body>
+</html>
