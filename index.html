@@ -39,26 +39,77 @@
 <script type="text/babel">
 	var destination = document.querySelector("#container");
 
-	var FirstComponent = React.createClass({
+	var SunglsComponent = React.createClass({
+			render: function() {
+
+			var sglassStyle = {
+				margin:10,
+				padding:10,
+				display:"inline-block"
+			};
+
+			var sglassPStyle = {
+				color: "white",
+				fontSize:8
+			};
+
+			return (
+				<div style={sglassStyle}>
+					
+					<img src={this.props.src} height={this.props.height} width={this.props.width} />
+					<div style={sglassPStyle}>
+						<p>{this.props.line1}</p>
+						<p>{this.props.line2}</p>
+					</div>
+				</div>
+			);
+		}
+	});
+
+
+	var UIComponent = React.createClass({
 	
 		render:	function() {
 			var myStyle = {
-				margin:"20px",
-				padding:"10px",
-				height: "auto",
-				width: "auto",
+				margin:"100px",
+				padding:"2px",
+				height: 500,
+				width: 600,
 				fontWeight:"bold",
 				backgroundColor: "transparent"
 			};
+			var h2Style = {
+				color: "white"
+			};
+
+			var s_glasses_src= ["g-01.png","g-02.png","g-03.png","g-04.png","g-05.png","g-06.png", "g-07.png"];
+			var s_glasses_line1 = ["BERNHARD WILLHELM","BERNHARD WILLHELM","BERNHARD WILLHELM","LINDA FARROW","EMPORIO ARMANI","EMPORIO ARMANI","BERNHARD WILLHELM"];
+			var s_glasses_line2=["FRANZ SUNGLASSES","HANSI SUNGLASSES","FERDL SUNGLASSES","YELLOW GOLD","GOLD-TONE EA2003","GOLD-TONE EA2003","BEPPO SUNGLASSES"];
+
+			var s_glasses_renderdata = [];
+
+			var i=0;
+			var xlength = s_glasses_src.length; 
+
+			for(i=0; i<xlength; i++) {
+				var src 	= s_glasses_src[i];
+				var line1 	= s_glasses_line1[i];
+				var line2 	= s_glasses_line2[i];
+				s_glasses_renderdata.push(<SunglsComponent key={i+src} src={src} height="98" width="88" line1={line1} line2={line2} />);
+			}
+
+
 			return (
 				<div style={myStyle}>
-					<img src="ScreenShot.png" height="300" width="400"/>
+					<h2 style={h2Style}>List of items to go with this ad</h2>
+					{s_glasses_renderdata}
 				</div>
 			);
 
 		}
 
 	});
+
 
 	 var VideoMain = React.createClass({
 
@@ -89,14 +140,14 @@
 			return (
 				<div id="v_main">
 					<div id="v_main_inner">
-						<video id="video-1-sex-n-city-trailer" width="550" height="310" controls autoPlay>
-				    		<source src="video-1-sex-n-city-trailer.mp4">
+						<video id="video-1-sex-n-city-trailer" width="100%" height="94%" autoPlay>
+				    		<source src="video-1-sex-n-city-trailer.mp4" controls>
 
 							</source>
 				  		</video>
 			  		</div>
 			  		<div id="v_main_selection">
-			  			{this.state.showItemList? <FirstComponent />:null} 
+			  			{this.state.showItemList? <UIComponent />:null} 
 			  		</div>
 			  	</div>
 			  	
